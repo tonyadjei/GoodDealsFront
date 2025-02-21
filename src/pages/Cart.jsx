@@ -4,7 +4,7 @@ import { useCart } from "../utils/CartContext";
 import { Link } from "react-router";
 
 const Cart = () => {
-  const { cart, subTotal, calculateSubTotal, removeFromCart } = useCart();
+  const { cart, subTotal, emptyCart, removeFromCart } = useCart();
 
   return (
     <>
@@ -31,6 +31,25 @@ const Cart = () => {
         <div className="mx-20 px-40 py-10 flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
           <div className="mt-8">
             <div className="flow-root">
+              <button
+                onClick={() => emptyCart()}
+                type="button"
+                className="mb-4 cursor-pointer flex items-center justify-center bg-orange-400 px-8 py-3 text-base font-medium text-white hover:bg-amber-500 focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:outline-hidden"
+              >
+                Empty Cart
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="size-6 ml-1 text-red-700"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
               <ul role="list" className="-my-6 divide-y divide-gray-200">
                 {cart.map((product) => (
                   <li key={product.id} className="flex py-6">
@@ -77,13 +96,13 @@ const Cart = () => {
               <p className="text-2xl">Subtotal</p>
               <p className="text-2xl">{subTotal.toFixed(2)}&euro;</p>
             </div>
-            <p className="mt-0.5 text-sm text-gray-500">
+            <p className="mt-0.5 text-lg text-gray-500">
               Shipping and taxes calculated at checkout.
             </p>
             <div className="mt-6">
               <a
                 href="#"
-                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700"
+                className="flex items-center justify-center bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-blue-700"
               >
                 Checkout
               </a>

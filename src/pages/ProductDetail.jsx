@@ -39,16 +39,16 @@ const ProductDetail = () => {
       {product ? (
         <div className="bg-white">
           <div className="pt-6">
-            <div className="ml-5 mb-10">
-              <Link to="/">
-                <button
-                  type="button"
-                  className="mb-4 cursor-pointer flex items-center justify-center bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-hidden"
-                >
+            <div className="ml-37 mb-10">
+              <button
+                type="button"
+                className="mb-4 cursor-pointer flex items-center justify-center bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-hidden"
+              >
+                <Link to="/">
                   <span aria-hidden="true"> &larr;</span>
                   Back To Products
-                </button>
-              </Link>
+                </Link>
+              </button>
             </div>
 
             <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">

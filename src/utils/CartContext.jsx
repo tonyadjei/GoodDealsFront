@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import Navbar from "../components/Navbar";
 
 const CartContext = createContext();
 
@@ -16,6 +17,10 @@ export const CartProvider = ({ children }) => {
       total += cart[i].price * cart[i].quantity;
     }
     setSubTotal(total);
+  };
+
+  const emptyCart = () => {
+    setCart([]);
   };
 
   useEffect(() => {
@@ -51,7 +56,14 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, subTotal, calculateSubTotal, addToCart, removeFromCart }}
+      value={{
+        cart,
+        subTotal,
+        calculateSubTotal,
+        addToCart,
+        removeFromCart,
+        emptyCart,
+      }}
     >
       {children}
     </CartContext.Provider>
