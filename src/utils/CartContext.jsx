@@ -8,12 +8,22 @@ export const CartProvider = ({ children }) => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
+  const [subTotal, setSubTotal] = useState(0);
+
+  const calculateSubTotal = () => {
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+      total += cart[i].price * cart[i].quantity;
+    }
+    setSubTotal(total);
+  };
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+    calculateSubTotal();
   }, [cart]);
 
-  const addToCart = (productID, quantity, name, imageUrl) => {
+  const addToCart = (productID, quantity, price, name, imageUrl) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((product) => product.id === productID);
       if (existingItem) {
@@ -25,7 +35,7 @@ export const CartProvider = ({ children }) => {
       } else {
         return [
           ...prevCart,
-          { id: productID, quantity: quantity, name: name, imageUrl: imageUrl },
+          { id: productID, quantity, price, name, imageUrl },
         ];
       }
     });
@@ -40,7 +50,9 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cart, subTotal, calculateSubTotal, addToCart, removeFromCart }}
+    >
       {children}
     </CartContext.Provider>
   );

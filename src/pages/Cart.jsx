@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
 import { useCart } from "../utils/CartContext";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router";
 
 const Cart = () => {
-  const { cart, removeFromCart } = useCart();
+  const { cart, subTotal, calculateSubTotal, removeFromCart } = useCart();
 
   return (
     <>
@@ -49,7 +48,10 @@ const Cart = () => {
                           <h3>
                             <a href={product.href}>{product.name}</a>
                           </h3>
-                          <p className="ml-4">{product.price}</p>
+                          <p className="ml-4">
+                            {(product.price * product.quantity).toFixed(2)}
+                            &euro;
+                          </p>
                         </div>
                       </div>
                       <div className="flex flex-1 items-end justify-between text-sm">
@@ -58,7 +60,7 @@ const Cart = () => {
                           <button
                             onClick={() => removeFromCart(product.id)}
                             type="button"
-                            className="cursor-pointer font-medium text-red-600 hover:text-red-500"
+                            className=" px-1 py-1 cursor-pointer  border text-white border-transparent bg-red-600 font-medium text-red-600 hover:bg-red-500"
                           >
                             Remove
                           </button>
@@ -72,8 +74,8 @@ const Cart = () => {
           </div>
           <div className="mt-10 border-t border-gray-200 px-4 py-6 sm:px-6">
             <div className="flex justify-between text-base font-medium text-gray-900">
-              <p>Subtotal</p>
-              <p>$262.00</p>
+              <p className="text-2xl">Subtotal</p>
+              <p className="text-2xl">{subTotal.toFixed(2)}&euro;</p>
             </div>
             <p className="mt-0.5 text-sm text-gray-500">
               Shipping and taxes calculated at checkout.

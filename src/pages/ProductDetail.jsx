@@ -39,11 +39,23 @@ const ProductDetail = () => {
       {product ? (
         <div className="bg-white">
           <div className="pt-6">
+            <div className="ml-5 mb-10">
+              <Link to="/">
+                <button
+                  type="button"
+                  className="mb-4 cursor-pointer flex items-center justify-center bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-hidden"
+                >
+                  <span aria-hidden="true"> &larr;</span>
+                  Back To Products
+                </button>
+              </Link>
+            </div>
+
             <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
               <img
                 alt={product.name}
                 src={product.imageUrl}
-                className="size-full rounded-lg object-cover lg:block"
+                className="size-80 rounded-lg object-cover lg:block"
               />
             </div>
             {/* Product info */}
@@ -63,7 +75,7 @@ const ProductDetail = () => {
                   <button
                     onClick={() => setQuantityToOrder()}
                     type="submit"
-                    className="mr-2 cursor-pointer mt-4 flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
+                    className="mr-2 cursor-pointer mt-4 flex items-center justify-center bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
                   >
                     Add Quantity
                   </button>
@@ -71,7 +83,7 @@ const ProductDetail = () => {
                   <button
                     onClick={() => setQuantity(1)}
                     type="submit"
-                    className="mr-2 cursor-pointer mt-4 flex items-center justify-center rounded-md border border-transparent bg-orange-600 px-8 py-3 text-base font-medium text-white hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-hidden"
+                    className="mr-2 cursor-pointer mt-4 flex items-center justify-center bg-orange-600 px-8 py-3 text-base font-medium text-white hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-hidden"
                   >
                     Reset Quantity
                   </button>
@@ -82,12 +94,13 @@ const ProductDetail = () => {
                       addToCart(
                         product.id,
                         quantity,
+                        product.price,
                         product.name,
                         product.imageUrl
                       );
                     }}
                     type="button"
-                    className=" cursor-pointer mt-4 flex items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-hidden"
+                    className=" cursor-pointer mt-4 flex items-center justify-center bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-hidden"
                   >
                     Add to cart
                   </button>

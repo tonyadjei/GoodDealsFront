@@ -29,7 +29,7 @@ const Homepage = () => {
           <Link to="/cart">
             <button
               type="button"
-              className="mb-4 cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-orange-600 px-8 py-3 text-base font-medium text-white hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-hidden"
+              className="mb-4 cursor-pointer flex items-center justify-center bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-hidden"
             >
               Go to Cart
               <span aria-hidden="true"> &rarr;</span>
@@ -39,7 +39,7 @@ const Homepage = () => {
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <>
+            <div key={product.id}>
               <Link
                 to={`/products/${product.id}`}
                 key={product.id}
@@ -57,11 +57,11 @@ const Homepage = () => {
                 <p className="mt-1 text-lg font-medium text-gray-900">
                   Left in Stock: {product.quantity}
                 </p>
-                <button className="mt-2 cursor-pointer justify-center rounded-md border border-transparent bg-orange-600 px-8 py-3 text-base font-medium text-white hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-hidden">
+                <button className="mt-2 cursor-pointer justify-center bg-orange-600 px-8 py-3 text-base font-medium text-white hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-hidden">
                   View Details
                 </button>
               </Link>
-            </>
+            </div>
           ))}
         </div>
       </div>
