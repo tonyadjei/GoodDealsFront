@@ -34,14 +34,14 @@ const Cart = () => {
               <button
                 onClick={() => emptyCart()}
                 type="button"
-                className="mb-4 cursor-pointer flex items-center justify-center bg-orange-400 px-8 py-3 text-base font-medium text-white hover:bg-amber-500 focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:outline-hidden"
+                className="mb-10 rounded-sm px-2 py-1 border border-2 cursor-pointer flex items-center justify-center bg-amber-600 text-base font-medium text-white hover:bg-amber-500 focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:outline-hidden"
               >
                 Empty Cart
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="size-6 ml-1 text-red-700"
+                  className="size-5 ml-1 text-white"
                 >
                   <path
                     fillRule="evenodd"
@@ -79,7 +79,7 @@ const Cart = () => {
                           <button
                             onClick={() => removeFromCart(product.id)}
                             type="button"
-                            className=" px-1 py-1 cursor-pointer  border text-white border-transparent bg-red-600 font-medium text-red-600 hover:bg-red-500"
+                            className="rounded-sm px-1 py-1 cursor-pointer  border text-white border-transparent bg-amber-600 font-medium text-amber-600 hover:bg-amber-500"
                           >
                             Remove
                           </button>
@@ -99,13 +99,29 @@ const Cart = () => {
             <p className="mt-0.5 text-lg text-gray-500">
               Shipping and taxes calculated at checkout.
             </p>
-            <div className="mt-6">
-              <a
-                href="#"
-                className="flex items-center justify-center bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-blue-700"
-              >
-                Checkout
-              </a>
+            <div className="mt-5 justify-self-center">
+              <Link to="#">
+                <button
+                  type="button"
+                  className="mb-4 rounded-sm cursor-pointer flex items-center justify-center bg-cyan-800 px-8 py-3 text-base font-medium text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:outline-hidden"
+                >
+                  Checkout
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="ml-1 size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                    />
+                  </svg>
+                </button>
+              </Link>
             </div>
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
               <p>
@@ -113,7 +129,7 @@ const Cart = () => {
                 <Link to="/">
                   <button
                     type="button"
-                    className="cursor-pointer font-medium text-indigo-600 hover:text-indigo-500"
+                    className="cursor-pointer font-medium text-amber-700 hover:text-amber-500"
                   >
                     Continue Shopping
                     <span aria-hidden="true"> &rarr;</span>

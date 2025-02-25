@@ -12,6 +12,7 @@ import React from "react";
 import goodeals_img from "../assets/Goodeals.png";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "react-router";
+import { useSession } from "../utils/SessionContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,12 +21,20 @@ function classNames(...classes) {
 const Navbar = () => {
   const { pathname } = useLocation();
 
+  const { isLoggedIn, logout } = useSession();
+
   const navigation = [
-    { name: "Home", href: "/", current: pathname === "/" ? true : false },
+    {
+      name: "Home",
+      href: "/",
+      current: pathname === "/" ? true : false,
+      isLoggedIn: isLoggedIn,
+    },
     {
       name: "Cart",
       href: "/cart",
       current: pathname === "/cart" ? true : false,
+      isLoggedIn: isLoggedIn,
     },
   ];
 
@@ -65,9 +74,10 @@ const Navbar = () => {
                     aria-current={item.current ? "page" : undefined}
                     className={classNames(
                       item.current
-                        ? "bg-gray-900 text-white"
+                        ? "bg-gray-900 text-amber-600"
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
+                      "rounded-md px-3 py-2 text-sm font-medium",
+                      item.isLoggedIn || item.name == "Home" ? "" : "hidden"
                     )}
                   >
                     {item.name}
@@ -76,39 +86,54 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            {/* Profile dropdown */}
-            <Menu as="div" className="relative ml-3">
-              <div>
-                <MenuButton className="cursor-pointer relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
-                  <UserCircleIcon className="size-10 text-white" />
-                </MenuButton>
-              </div>
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Your Profile
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Sign out
-                  </a>
-                </MenuItem>
-              </MenuItems>
-            </Menu>
-          </div>
+          {isLoggedIn ? (
+            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              {/* Profile dropdown */}
+              <Menu as="div" className="relative ml-3">
+                <div>
+                  <MenuButton className="cursor-pointer relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                    <span className="absolute -inset-1.5" />
+                    <span className="sr-only">Open user menu</span>
+                    <UserCircleIcon className="size-10 text-amber-600" />
+                  </MenuButton>
+                </div>
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <MenuItem>
+                    <Link
+                      to="/profile"
+                      className="cursor-pointer block px-4 py-2 text-sm text-amber-700 data-focus:bg-amber-100 data-focus:outline-hidden"
+                    >
+                      Your Profile
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <span
+                      onClick={logout}
+                      className="cursor-pointer block px-4 py-2 text-sm text-amber-700 data-focus:bg-amber-100 data-focus:outline-hidden"
+                    >
+                      Sign out
+                    </span>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            </div>
+          ) : (
+            <>
+              <Link to="/login">
+                <button className="mr-2 rounded-sm cursor-pointer bg-cyan-800 px-4 py-1 text-base font-medium text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-hidden">
+                  Login
+                </button>
+              </Link>
+              <Link to="/register">
+                <button className="mr-2 rounded-sm cursor-pointer bg-cyan-800 px-4 py-1 text-base font-medium text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-hidden">
+                  Register
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
@@ -122,9 +147,10 @@ const Navbar = () => {
               aria-current={item.current ? "page" : undefined}
               className={classNames(
                 item.current
-                  ? "bg-gray-900 text-white"
+                  ? "bg-gray-900 text-amber-600"
                   : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                "block rounded-md px-3 py-2 text-base font-medium"
+                "block rounded-md px-3 py-2 text-base font-medium",
+                item.isLoggedIn || item.name == "Home" ? "" : "hidden"
               )}
             >
               {item.name}

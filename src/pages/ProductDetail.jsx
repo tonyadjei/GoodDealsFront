@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { products_api } from "../axios_instances";
+import { products_api } from "../utils/AxiosInstances";
 
 import { useCart } from "../utils/CartContext";
+import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 
 const ProductDetail = () => {
   const { addToCart } = useCart();
@@ -20,11 +21,19 @@ const ProductDetail = () => {
     }
   };
 
+  const decrementQuantity = () => {
+    setQuantity((quantity) => {
+      return quantity === 1 ? quantity : quantity - 1;
+    });
+  };
+
   const fetchProduct = async () => {
     try {
-      const { data } = await products_api(`/${productID}`);
-      setProduct(data);
-      setAmountInStock(data.quantity);
+      const { data, status } = await products_api(`/${productID}`);
+      if (status === 200) {
+        setProduct(data);
+        setAmountInStock(data.quantity);
+      }
     } catch (error) {
       console.error(error.response);
     }
@@ -42,7 +51,7 @@ const ProductDetail = () => {
             <div className="ml-37 mb-10">
               <button
                 type="button"
-                className="mb-4 cursor-pointer flex items-center justify-center bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-hidden"
+                className="mb-4 rounded-sm cursor-pointer flex items-center justify-center bg-cyan-800 px-4 py-2 text-base font-medium text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-hidden"
               >
                 <Link to="/">
                   <span aria-hidden="true"> &larr;</span>
@@ -64,10 +73,10 @@ const ProductDetail = () => {
                 <h1 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                   {product.name}
                 </h1>
-                <p className="mb-2 text-3xl tracking-tight text-gray-900">
+                <p className="mb-2 text-2xl tracking-tight text-gray-900 font-medium">
                   <span className="text-red-800">Quantity:</span> {quantity}
                 </p>
-                <p className="text-3xl tracking-tight text-gray-900">
+                <p className="text-2xl tracking-tight text-gray-900 font-medium">
                   <span className="text-red-800">Price:</span> {product.price}
                   &euro;
                 </p>
@@ -75,17 +84,19 @@ const ProductDetail = () => {
                   <button
                     onClick={() => setQuantityToOrder()}
                     type="submit"
-                    className="mr-2 cursor-pointer mt-4 flex items-center justify-center bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
+                    className="mr-2 rounded-sm cursor-pointer mt-4 flex items-center justify-center bg-green-600 px-4 py-1 text-base font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-hidden"
                   >
-                    Add Quantity
+                    <PlusCircleIcon className="size-10" />
                   </button>
 
                   <button
-                    onClick={() => setQuantity(1)}
+                    onClick={() => {
+                      decrementQuantity();
+                    }}
                     type="submit"
-                    className="mr-2 cursor-pointer mt-4 flex items-center justify-center bg-orange-600 px-8 py-3 text-base font-medium text-white hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-hidden"
+                    className="mr-2 rounded-sm cursor-pointer mt-4 flex items-center justify-center bg-orange-600 px-4 py-1 text-base font-medium text-white hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-hidden"
                   >
-                    Reset Quantity
+                    <MinusCircleIcon className="size-10" />
                   </button>
                 </div>
                 <Link to="/cart">
@@ -100,7 +111,7 @@ const ProductDetail = () => {
                       );
                     }}
                     type="button"
-                    className=" cursor-pointer mt-4 flex items-center justify-center bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-hidden"
+                    className="rounded-sm cursor-pointer mt-4 flex items-center justify-center bg-cyan-800 px-4 py-2 text-base font-medium text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:outline-hidden"
                   >
                     Add to cart
                   </button>
@@ -119,7 +130,7 @@ const ProductDetail = () => {
               <Link to="/">
                 <button
                   type="button"
-                  className="cursor-pointer font-medium text-indigo-600 hover:text-indigo-500"
+                  className="cursor-pointer font-medium text-amber-600 hover:text-amber-500"
                 >
                   Browse Products
                   <span aria-hidden="true"> &rarr;</span>

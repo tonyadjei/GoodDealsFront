@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import Navbar from "../components/Navbar";
 
 const CartContext = createContext();
 
@@ -71,7 +70,7 @@ export const CartProvider = ({ children }) => {
 };
 
 CartProvider.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.node,
 };
 
 export const useCart = () => useContext(CartContext);

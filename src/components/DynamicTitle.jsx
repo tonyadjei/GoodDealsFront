@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
-import { products_api } from "../axios_instances";
+import { products_api } from "../utils/AxiosInstances";
 
 const DynamicTitle = () => {
   const location = useLocation();
